@@ -1,0 +1,6 @@
+[versions]
+    kotlin="2.0.0"
+    kotlinForForge="4.11.0"
+
+[libraries]
+    kotlin-forge = { module = "thedarkcolour:kotlinforforge", version.ref = "kotlinForForge" }
