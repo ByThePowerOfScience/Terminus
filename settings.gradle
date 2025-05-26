@@ -7,7 +7,7 @@ pluginManagement {
 	}
 }
 
-rootProject.name = 'thaumonomical'
+rootProject.name = 'terminus'
 
 include 'common'
 include 'fabric'

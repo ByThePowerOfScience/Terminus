@@ -1,3 +1,6 @@
+import net.fabricmc.loom.api.LoomGradleExtensionAPI
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
 	id("dev.architectury.loom") version "1.10-SNAPSHOT" apply false
 	id("architectury-plugin") version "3.4-SNAPSHOT"
@@ -15,14 +18,14 @@ allprojects {
 }
 
 subprojects {
-	apply(plugin: "dev.architectury.loom")
-	apply(plugin: "architectury-plugin")
-	apply(plugin: "maven-publish")
-	apply(plugin: "org.jetbrains.kotlin.jvm")
+	apply(plugin = "architectury-plugin")
+//	apply(plugin="maven-publish")
+	apply(plugin = "org.jetbrains.kotlin.jvm")
+	apply(plugin = "dev.architectury.loom")
 	
 	base {
 		// Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-		archivesName = "$rootProject.archives_name-$project.name"
+		archivesName = "$rootProject.archives_name-${project.properties["name"]}"
 	}
 	
 	repositories {
@@ -33,9 +36,10 @@ subprojects {
 		// for more information about repositories.
 	}
 	
+	val loom = project.extensions.getByName<LoomGradleExtensionAPI>("loom")
 	dependencies {
-		minecraft("net.minecraft:minecraft:$rootProject.minecraft_version")
-		mappings(loom.officialMojangMappings())
+		"minecraft"("net.minecraft:minecraft:${rootProject.properties["minecraft_version"]}")
+		"mappings"(loom.officialMojangMappings())
 	}
 	
 	java {
@@ -48,25 +52,32 @@ subprojects {
 		targetCompatibility = JavaVersion.VERSION_17
 	}
 	
-	tasks.withType(JavaCompile).configureEach {
-		it.options.release = 17
+	tasks.withType<JavaCompile>().configureEach {
+		options.release = 17
 	}
 	
-	// Configure Maven publishing.
-	publishing {
-		publications {
-			mavenJava(MavenPublication) {
-				artifactId = base.archivesName.get()
-				from(components.java)
-			}
-		}
-		
-		// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-		repositories {
-			// Add repositories to publish to here.
-			// Notice: This block does NOT have the same function as the block in the top level.
-			// The repositories here will be used for publishing your artifact, not for
-			// retrieving dependencies.
+	kotlin {
+		compilerOptions {
+			jvmTarget.set(JvmTarget.JVM_17)
 		}
 	}
+	
+	
+	// Configure Maven publishing.
+//	publishing {
+//		publications {
+//			mavenJava(MavenPublication::class.java) {
+//				artifactId = base.archivesName.get()
+//				from(components.java)
+//			}
+//		}
+//
+//		// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+//		repositories {
+//			// Add repositories to publish to here.
+//			// Notice: This block does NOT have the same function as the block in the top level.
+//			// The repositories here will be used for publishing your artifact, not for
+//			// retrieving dependencies.
+//		}
+//	}
 }
