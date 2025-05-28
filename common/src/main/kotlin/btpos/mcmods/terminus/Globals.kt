@@ -1,3 +1,8 @@
 package btpos.mcmods.terminus
 
-const val MOD_ID = "thaumonomical"
+import com.mojang.logging.LogUtils
+import org.slf4j.LoggerFactory
+
+const val MOD_ID = "terminus"
+
+val LOGGER = LoggerFactory.getLogger("Terminus")

@@ -1,6 +1,6 @@
 package btpos.mcmods.terminus.fabric
 
-import btpos.mcmods.terminus.EntryCommon
+import btpos.mcmods.terminus.CommonEntry
 import net.fabricmc.api.ModInitializer
 
 class FabricEntry : ModInitializer {
@@ -10,7 +10,6 @@ class FabricEntry : ModInitializer {
 		// Proceed with mild caution.
 		
 		// Run our common setup.
-		
-		EntryCommon.init()
+		CommonEntry.init()
 	}
 }

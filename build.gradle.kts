@@ -15,6 +15,14 @@ architectury {
 allprojects {
 	group = rootProject.properties["maven_group"] as String
 	version = rootProject.properties["mod_version"] as String
+	
+	repositories {
+		maven {
+			name = "ParchmentMC"
+			url = uri("https://maven.parchmentmc.org")
+		}
+	}
+	
 }
 
 subprojects {
@@ -25,7 +33,7 @@ subprojects {
 	
 	base {
 		// Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-		archivesName = "$rootProject.archives_name-${project.properties["name"]}"
+		archivesName = "${rootProject.properties["archives_name"]}-${project.properties["name"]}"
 	}
 	
 	repositories {
@@ -35,11 +43,22 @@ subprojects {
 		// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 		// for more information about repositories.
 	}
-	
+	// 2023.09.03
 	val loom = project.extensions.getByName<LoomGradleExtensionAPI>("loom")
+	
+	configure(listOf(loom)) {// idk why it only recognizes collections
+		silentMojangMappingsLicense()
+		this.runs {
+			this["client"].property("fabric.log.level", "debug")
+			this["server"].property("fabric.log.level", "debug")
+		}
+	}
 	dependencies {
 		"minecraft"("net.minecraft:minecraft:${rootProject.properties["minecraft_version"]}")
-		"mappings"(loom.officialMojangMappings())
+		"mappings"(loom.layered() {
+			officialMojangMappings()
+			parchment("org.parchmentmc.data:parchment-1.20.1:2023.09.03@zip")
+		})
 	}
 	
 	java {

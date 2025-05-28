@@ -1,6 +1,6 @@
 package btpos.mcmods.terminus.forge
 
-import btpos.mcmods.terminus.EntryCommon
+import btpos.mcmods.terminus.CommonEntry
 import btpos.mcmods.terminus.MOD_ID
 import dev.architectury.platform.forge.EventBuses
 import net.minecraftforge.fml.common.Mod
@@ -13,6 +13,6 @@ object EntryForge {
 		EventBuses.registerModEventBus(MOD_ID, MOD_BUS)
 		
 		// Run our common setup.
-		EntryCommon.init()
+		CommonEntry.init()
 	}
 }
