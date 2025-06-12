@@ -1,7 +1,14 @@
 [versions]
-    kotlin="2.0.0"
+    kotlin="2.1.21"
     kotlinForForge="4.11.0"
     cardinalComponents="5.2.3"
 
 [libraries]
     kotlin-forge = { module = "thedarkcolour:kotlinforforge", version.ref = "kotlinForForge" }
+    cardinalComponents-base = { name = "cardinal-components-base", group = "dev.onyxstudios.cardinal-components-api", version.ref="cardinalComponents"}
+    cardinalComponents-item = { name = "cardinal-components-item", group = "dev.onyxstudios.cardinal-components-api", version.ref="cardinalComponents"}
+    cardinalComponents-entity = { name = "cardinal-components-entity", group = "dev.onyxstudios.cardinal-components-api", version.ref="cardinalComponents"}
+    cardinalComponents-chunk = { name = "cardinal-components-chunk", group = "dev.onyxstudios.cardinal-components-api", version.ref="cardinalComponents"}
+
+[bundles]
+    cardinalComponents=["cardinalComponents-base", "cardinalComponents-item", "cardinalComponents-entity", "cardinalComponents-chunk"]

@@ -33,3 +33,10 @@ license = "All Rights Reserved"
     versionRange = "[9.2.14,)"
     ordering = "AFTER"
     side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+    modId = "kotlinforforge"
+    mandatory = true
+    versionRange = "[4.10,)"
+    ordering = "AFTER"
+    side = "BOTH"

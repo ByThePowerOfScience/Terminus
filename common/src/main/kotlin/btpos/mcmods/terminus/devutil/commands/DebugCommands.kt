@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.LivingEntity
 
 object DebugCommands {
-	
 	fun make(): CommandLiteral {
 		return literal("terminus") {
 			literal("hand") {

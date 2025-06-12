@@ -39,16 +39,12 @@ dependencies {
 	
 	modImplementation "dev.architectury:architectury-fabric:$rootProject.architectury_api_version"
 	
-	modImplementation "net.fabricmc:fabric-language-kotlin:1.11.0+kotlin.2.0.0"
+	modImplementation "net.fabricmc:fabric-language-kotlin:1.13.3+kotlin.${libs.versions.kotlin.get()}"
 	
 	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 	
-//	var vCC = "5.2.3"
-//	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${vCC}"
-//	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${vCC}"
-//	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${vCC}"
-//	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-util:${vCC}"
+	modImplementation(libs.bundles.cardinalComponents)
 }
 
 processResources {

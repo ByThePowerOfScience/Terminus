@@ -25,6 +25,14 @@
         "adapter": "kotlin",
         "value": "btpos.mcmods.terminus.fabric.client.FabricClientEntry"
       }
+    ],
+    "cardinal-components": [
+      "btpos.mcmods.terminus.fabric.ComponentsRegistrar"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "terminus:chunk_aura"
     ]
   },
   "mixins": [

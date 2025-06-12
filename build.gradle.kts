@@ -5,7 +5,7 @@ plugins {
 	id("dev.architectury.loom") version "1.10-SNAPSHOT" apply false
 	id("architectury-plugin") version "3.4-SNAPSHOT"
 	id("com.github.johnrengelman.shadow") version "8.1.1" apply false
-	id("org.jetbrains.kotlin.jvm") version "2.1.21"
+	id("org.jetbrains.kotlin.jvm") version libs.versions.kotlin
 }
 
 architectury {
@@ -22,7 +22,6 @@ allprojects {
 			url = uri("https://maven.parchmentmc.org")
 		}
 	}
-	
 }
 
 subprojects {
@@ -49,8 +48,14 @@ subprojects {
 	configure(listOf(loom)) {// idk why it only recognizes collections
 		silentMojangMappingsLicense()
 		this.runs {
-			this["client"].property("fabric.log.level", "debug")
-			this["server"].property("fabric.log.level", "debug")
+			this["client"].run {
+				property("fabric.log.level", "debug")
+				vmArg("-XX:+AllowEnhancedClassRedefinition")
+			}
+			this["server"].run {
+				property("fabric.log.level", "debug")
+				vmArg("-XX:+AllowEnhancedClassRedefinition")
+			}
 		}
 	}
 	dependencies {
@@ -78,6 +83,15 @@ subprojects {
 	kotlin {
 		compilerOptions {
 			jvmTarget.set(JvmTarget.JVM_17)
+			freeCompilerArgs.add("-Xcontext-parameters")
+		}
+		
+		if (project != project(":common")) {
+			sourceSets {
+				main {
+					dependsOn(project(":common").kotlin.sourceSets.main.get())
+				}
+			}
 		}
 	}
 	
