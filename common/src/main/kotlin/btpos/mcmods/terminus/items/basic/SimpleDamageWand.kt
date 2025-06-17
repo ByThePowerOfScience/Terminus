@@ -7,11 +7,13 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.HitResult
+import java.util.function.Predicate
 
 /**
  * An exceedingly simple item that, when right-clicked while looking at an entity, damages it for 1 heart.
@@ -33,7 +35,7 @@ class SimpleDamageWand(props: Properties) : Item(props) {
 		}
 		
 		// TODO figure out why I can't hit entities
-		val target = player.pick(MAX_DISTANCE, 1f, false).let {
+		val target = ProjectileUtil.getHitResultOnViewVector(player, {it is LivingEntity}, MAX_DISTANCE).let {
 			when (it.type) {
 				HitResult.Type.ENTITY -> it as EntityHitResult
 				HitResult.Type.BLOCK -> {
