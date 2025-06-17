@@ -49,44 +49,39 @@ object DebugCommands {
 	}
 	
 	fun checkChunkAura() = literal("chunk") {
-			executes { ctx ->
-				ctx.debug("Started command")
-				try {
-					val player = ctx.source.takeIf { it.isPlayer }?.player ?: run {
-						ctx.debug("Command must be run by a player")
-						return@executes 0
-					}
-					ctx.debug("got player")
-					
-					val level = ctx.source.level
-					
-					ctx.debug("got level")
-					
-					val chunk = level.getChunk(player.chunkPosition())
-					
-					ctx.debug("got chunk")
-					
-					val data = runCatching {
-						chunk.auraData ?: run {
-							ctx.debug("No aura data!")
-							return@executes 0
-						}
-					}.onSuccess { data ->
-						ctx.debug("got aura data")
-						
-						ctx.debug("Vis: ${data.vis}\nFlux: ${data.flux}")
-						
-						return@executes 1
-					}.onFailure {
-						it.printStackTrace()
-					}
-					
-					return@executes 0
-				} catch (e: Exception) {
-					ctx.debug("Exception: ${e.message}")
-					ctx.debug(e.stackTraceToString())
+		executes { ctx ->
+			ctx.debug("Started command")
+			try {
+				val player = ctx.source.takeIf { it.isPlayer }?.player ?: run {
+					ctx.debug("Command must be run by a player")
 					return@executes 0
 				}
+				ctx.debug("got player")
+				
+				val level = ctx.source.level
+				
+				ctx.debug("got level")
+				
+				val chunk = level.getChunk(player.chunkPosition())
+				
+				ctx.debug("got chunk")
+				
+				val data = chunk.auraData ?: run {
+					ctx.debug("No aura data!")
+					return@executes 0
+				}
+				
+				ctx.debug("got aura data")
+				
+				ctx.debug("Vis: ${data.vis}\nFlux: ${data.flux}")
+				
+				return@executes 1
+				
+			} catch (e: Exception) {
+				ctx.debug("Exception: ${e.message}")
+				ctx.debug(e.stackTraceToString())
+				return@executes 0
+			}
 		}
 	}
 }
