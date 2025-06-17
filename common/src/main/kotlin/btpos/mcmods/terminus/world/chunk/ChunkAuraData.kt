@@ -1,19 +1,16 @@
 package btpos.mcmods.terminus.world.chunk
 
 import btpos.mcmods.terminus.MPDepInject
-import btpos.mcmods.terminus.devutil.expect
 import btpos.mcmods.terminus.loc
-import btpos.mcmods.terminus.util.INbtSerializable
+import btpos.mcmods.terminus.util.serialization.ICompoundNbtSerializable
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.architectury.injectables.annotations.ExpectPlatform
 import net.minecraft.world.level.chunk.ChunkAccess
 
 val ChunkAccess.auraData: IChunkAuraData?
 	get() = MPDepInject.extensionFunctions().getAuraData(this)
 
-
-interface IChunkAuraData : INbtSerializable<IChunkAuraData> {
+interface IChunkAuraData : ICompoundNbtSerializable<IChunkAuraData> {
 	companion object {
 		val CODEC: Codec<IChunkAuraData> = RecordCodecBuilder.create {
 			it.group(
