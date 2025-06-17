@@ -2,13 +2,18 @@
 
 package btpos.mcmods.terminus.devutil
 
-import dev.architectury.utils.PlatformExpectedError
+import btpos.mcmods.terminus.LOGGER
+import dev.architectury.platform.Platform
 
-inline fun expect(): Nothing = throw PlatformExpectedError()
+fun expect(): Nothing {
+	throw IllegalStateException("Expected ${if (Platform.isFabric()) "Fabric" else "Forge"}-specific method! This is a FATAL ERROR, please report this immediately!").also {
+		LOGGER.error("FATAL ERROR", it)
+	}
+}
 
 /**
- * Just to suppress the "unused" warning when using `@ExpectPlatform`.
+ * Just to suppress the "unused" warning on classes when using `@ExpectPlatform`.
  */
-@Retention(AnnotationRetention.BINARY)
+@Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER, AnnotationTarget.CLASS)
 annotation class Actual
