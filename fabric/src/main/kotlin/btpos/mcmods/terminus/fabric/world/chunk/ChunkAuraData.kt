@@ -1,6 +1,7 @@
 package btpos.mcmods.terminus.fabric.world.chunk
 
 import btpos.mcmods.terminus.devutil.Actual
+import btpos.mcmods.terminus.fabric.ComponentKeys
 import btpos.mcmods.terminus.fabric.ComponentsRegistrar
 import btpos.mcmods.terminus.world.chunk.ChunkAuraData
 import btpos.mcmods.terminus.world.chunk.IChunkAuraData
@@ -10,8 +11,6 @@ import net.minecraft.world.level.chunk.ChunkAccess
 import kotlin.jvm.optionals.getOrNull
 
 
-val ChunkAccess.auraData: IChunkAuraData?
-	@Actual get() = ComponentsRegistrar.CHUNK_AURA.maybeGet(this).getOrNull()
 
 
 data class ChunkAuraData_Fabric(val data: ChunkAuraData) : IChunkAuraData by data, Component {

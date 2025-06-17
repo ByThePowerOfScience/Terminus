@@ -1,18 +1,17 @@
 package btpos.mcmods.terminus.world.chunk
 
+import btpos.mcmods.terminus.MPDepInject
 import btpos.mcmods.terminus.devutil.expect
-import btpos.mcmods.terminus.devutil.ext.vanilla.component1
-import btpos.mcmods.terminus.devutil.ext.vanilla.component2
+import btpos.mcmods.terminus.loc
 import btpos.mcmods.terminus.util.INbtSerializable
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.architectury.injectables.annotations.ExpectPlatform
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.NbtOps
 import net.minecraft.world.level.chunk.ChunkAccess
 
 val ChunkAccess.auraData: IChunkAuraData?
-	@ExpectPlatform get() = expect()
+	get() = MPDepInject.extensionFunctions().getAuraData(this)
+
 
 interface IChunkAuraData : INbtSerializable<IChunkAuraData> {
 	companion object {
@@ -22,6 +21,8 @@ interface IChunkAuraData : INbtSerializable<IChunkAuraData> {
 					Codec.INT.fieldOf("flux").forGetter(IChunkAuraData::flux)
 			).apply(it, ::ChunkAuraData)
 		}
+		
+		val ID = loc("chunk_aura")
 	}
 	
 	var vis: Int

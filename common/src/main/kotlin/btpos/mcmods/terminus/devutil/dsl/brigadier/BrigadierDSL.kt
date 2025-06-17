@@ -231,7 +231,7 @@ value class LiteralBuilder<S>(val internal: LiteralArgumentBuilder<S>) {
 	}
 	
 	/**
-	 * Directs execution to the given target node (acquired with ArgumentBuilder#build) when parsed, applying the provided modifier to the command context before proceeding to the redirect target.
+	 * Directs execution to the given target node (acquired with [ArgumentBuilder.build]) when parsed, applying the provided modifier to the command context before proceeding to the redirect target.
 	 * I'd imagine it's used for things like adding optional arguments to the front of a command, like "dothing thisway x y z" instead of "dothing x y z".
 	 * E.g. you'd turn "x y z" into a commandnode, and have just "dothing x y z" be a redirect from "dothing" to "x y z" with the modifier being a default value for "thisway".
 	 */
@@ -240,11 +240,12 @@ value class LiteralBuilder<S>(val internal: LiteralArgumentBuilder<S>) {
 	}
 	
 	/**
-	 * "If the command passes through a node that is {@link CommandNode#isFork()} then it will be 'forked'.
-	 * A forked command will not bubble up any {@link CommandSyntaxException}s, and the 'result' returned will turn into
+	 * "If the command passes through a node that is [CommandNode.isFork] then it will be 'forked'.
+	 * A forked command will not bubble up any [com.mojang.brigadier.exceptions.CommandSyntaxException]s, and the 'result' returned will turn into
 	 * 'amount of successful commands executes'."
 	 *
 	 * Essentially, forked nodes just don't propagate exceptions, and act like batch jobs in powershell instead.
+	 * Or I guess "fork" in Linux would be more appropriate.
 	 */
 	inline fun fork(target: CommandNode<S>, modifier: RedirectModifier<S>) {
 		internal.fork(target, modifier)

@@ -64,6 +64,7 @@ subprojects {
 			officialMojangMappings()
 			parchment("org.parchmentmc.data:parchment-1.20.1:2023.09.03@zip")
 		})
+		implementation("org.kodein.di:kodein-di:7.25.0")
 	}
 	
 	java {
@@ -84,14 +85,6 @@ subprojects {
 		compilerOptions {
 			jvmTarget.set(JvmTarget.JVM_17)
 			freeCompilerArgs.add("-Xcontext-parameters")
-		}
-		
-		if (project != project(":common")) {
-			sourceSets {
-				main {
-					dependsOn(project(":common").kotlin.sourceSets.main.get())
-				}
-			}
 		}
 	}
 	

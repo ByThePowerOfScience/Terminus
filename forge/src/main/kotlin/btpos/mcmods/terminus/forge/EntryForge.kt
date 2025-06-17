@@ -14,5 +14,8 @@ object EntryForge {
 		
 		// Run our common setup.
 		CommonEntry.init()
+		
+		MOD_BUS.addListener(ModCapabilities::registerCapabilities)
+		MOD_BUS.addListener(ModCapabilities::attachChunkCapability)
 	}
 }

@@ -5,10 +5,9 @@ import dev.architectury.event.events.common.CommandRegistrationEvent
 import btpos.mcmods.terminus.registries.Items as RegItems
 
 object CommonEntry {
-	
 	fun init() {
 		initRegistries()
-		
+		initDebugCommands()
 	}
 	
 	fun initRegistries() {

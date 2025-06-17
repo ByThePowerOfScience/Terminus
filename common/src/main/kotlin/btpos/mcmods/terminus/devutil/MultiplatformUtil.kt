@@ -7,8 +7,8 @@ import dev.architectury.utils.PlatformExpectedError
 inline fun expect(): Nothing = throw PlatformExpectedError()
 
 /**
- * Just to suppress the "unused" warning when using `@ExpectPlatform`
+ * Just to suppress the "unused" warning when using `@ExpectPlatform`.
  */
 @Retention(AnnotationRetention.BINARY)
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER, AnnotationTarget.CLASS)
 annotation class Actual
