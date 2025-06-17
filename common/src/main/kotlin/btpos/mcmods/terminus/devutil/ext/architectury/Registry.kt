@@ -10,6 +10,9 @@ import java.util.function.Supplier
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
+/**
+ * Allows me to still get the resource location with ::var while referring to the item/block/etc declaratively.
+ */
 class RegistryObjectDelegate<out T : Any>(val name: String, val supplier: RegistrySupplier<out T>) : ReadOnlyProperty<Any?, T> {
 	override fun getValue(thisRef: Any?, property: KProperty<*>): T {
 		return supplier.get()
