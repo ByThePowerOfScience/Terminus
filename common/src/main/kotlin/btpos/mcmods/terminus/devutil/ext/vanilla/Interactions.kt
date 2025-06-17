@@ -2,7 +2,6 @@
 
 package btpos.mcmods.terminus.devutil.ext.vanilla
 
-import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
 
